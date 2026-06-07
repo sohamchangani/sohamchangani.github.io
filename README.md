@@ -1,1 +1,962 @@
-# sohamchangani.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soham Changani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f0f0f;
+      --paper: #f5f2ec;
+      --accent: #1a3a5c;
+      --accent-light: #c8d8e8;
+      --muted: #6b6560;
+      --rule: #d4cec6;
+      --hover: #e8e2d8;
+      --tag-bg: #e2eaf2;
+      --tag-text: #1a3a5c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(245, 242, 236, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+      padding: 1rem 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .hero-meta-item span:first-child {
+      color: var(--accent);
+      min-width: 20px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #0f2a45; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn-outline:hover { background: var(--accent); color: #fff; }
+
+    /* Avatar placeholder */
+    .avatar-wrap {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 3px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+
+    .avatar-initials {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .pub-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.2rem;
+      padding: 1.4rem 1.6rem;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .pub-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 16px rgba(26,58,92,0.08);
+    }
+
+    .pub-card.visible { opacity: 1; transform: translateY(0); }
+
+    .pub-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 0.2rem;
+      min-width: 40px;
+    }
+
+    .pub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .badge-oral { background: #fef3c7; color: #92400e; }
+    .badge-submitted { background: var(--tag-bg); color: var(--tag-text); }
+
+    .pub-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .pub-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .pub-title a:hover { color: var(--accent); }
+
+    .pub-authors {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .pub-authors strong { color: var(--ink); font-weight: 500; }
+
+    .pub-venue {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+    }
+
+    /* ── RESEARCH PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .project-card {
+      padding: 1.4rem 1.6rem;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      transition: all 0.2s;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+    }
+
+    .project-card:hover { border-color: var(--accent); }
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+
+    .project-status {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .project-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0.8rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      padding: 0.15rem 0.5rem;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+    .exp-item.visible { opacity: 1; transform: translateY(0); }
+
+    .exp-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 0.2rem;
+      line-height: 1.5;
+    }
+
+    .exp-role {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+
+    .exp-org {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .exp-bullets li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--rule);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .skill-group {
+      padding: 1.2rem 1.4rem;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+    }
+
+    .skill-group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      background: var(--hover);
+      color: var(--ink);
+      border-radius: 2px;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .edu-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .edu-item:last-child { border-bottom: none; }
+
+    .edu-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 0.15rem;
+    }
+
+    .edu-degree {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+
+    .edu-school {
+      font-size: 0.84rem;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-gpa {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    /* ── TALKS ── */
+    .talks-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .talk-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px dashed var(--rule);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .talk-item:last-child { border-bottom: none; }
+    .talk-item.visible { opacity: 1; transform: translateY(0); }
+
+    .talk-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .talk-title {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+
+    .talk-venue {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-label { animation: fadeUp 0.6s ease both; }
+    .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-bio { animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-meta { animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-links { animation: fadeUp 0.6s 0.4s ease both; }
+    .avatar-wrap { animation: fadeUp 0.6s 0.15s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .avatar-wrap { width: 100px; height: 100px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .exp-item, .edu-item, .talk-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <span class="nav-name">Soham Changani</span>
+      <ul class="nav-links">
+        <li><a href="#research">Research</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#talks">Talks</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-label">Ph.D. Researcher · Topological Machine Learning</p>
+          <h1>Soham<br><em>Changani</em></h1>
+          <p class="hero-bio">
+            I work at the intersection of graph machine learning and topological data analysis,
+            developing novel architectures for temporal graphs, graph imaging, and multi-modal
+            learning — with applications in healthcare, social networks, and energy infrastructure.
+          </p>
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <span>🎓</span>
+              <span>Ph.D. Candidate, Mathematics · University of Texas at Dallas</span>
+            </div>
+            <div class="hero-meta-item">
+              <span>🔬</span>
+              <span>Advisor: Dr. Baris Coskunuzer · Topological Machine Learning Lab</span>
+            </div>
+            <div class="hero-meta-item">
+              <span>📍</span>
+              <span>Plano, TX</span>
+            </div>
+          </div>
+          <div class="hero-links">
+            <a href="mailto:soham.changani@gmail.com" class="btn btn-primary">Email Me</a>
+            <a href="https://github.com/sohamchangani" target="_blank" class="btn btn-outline">GitHub</a>
+            <a href="https://linkedin.com/in/soham-changani/" target="_blank" class="btn btn-outline">LinkedIn</a>
+            <a href="https://arxiv.org/abs/2510.13789" target="_blank" class="btn btn-outline">arXiv</a>
+          </div>
+        </div>
+        <div class="avatar-wrap">
+          <span class="avatar-initials">SC</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">01</span>
+        <h2 class="section-title">Publications</h2>
+      </div>
+      <div class="pub-list">
+
+        <div class="pub-card">
+          <div class="pub-year">2025</div>
+          <div>
+            <div class="pub-badge badge-oral">★ AAAI Oral</div>
+            <div class="pub-title">
+              <a href="https://arxiv.org/abs/2510.13789" target="_blank">
+                T3Former: Temporal Graph Classification with Topological Machine Learning
+              </a>
+            </div>
+            <div class="pub-authors">Md. Joshem Uddin, <strong>Soham Changani</strong>, Baris Coskunuzer</div>
+            <div class="pub-venue">AAAI 2025 · Oral Presentation · arXiv:2510.13789</div>
+          </div>
+        </div>
+
+        <div class="pub-card">
+          <div class="pub-year">2026</div>
+          <div>
+            <div class="pub-badge badge-submitted">Under Review · NeurIPS</div>
+            <div class="pub-title">
+              G2Image: From Nodes to Pixels — Topological and Structural Two-View Graph Imaging
+            </div>
+            <div class="pub-authors"><strong>Soham Changani</strong>, Md. Joshem Uddin, Sai Karthik Navuluru, Cuneyt Gurcan Akcora, Baris Coskunuzer</div>
+            <div class="pub-venue">Submitted to NeurIPS 2026</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">02</span>
+        <h2 class="section-title">Ongoing Research</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-status"><span class="dot"></span> Active</div>
+          <div class="project-name">Multi-OMICS</div>
+          <div class="project-desc">
+            LLM-grounded multi-channel GNN for cancer data analysis, fusing DNA, RNA, and miRNA signals through cross-modal graph learning. Target: ICLR.
+          </div>
+          <div class="tags">
+            <span class="tag">GNN</span>
+            <span class="tag">LLM Grounding</span>
+            <span class="tag">Multi-modal</span>
+            <span class="tag">Biomedical</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-status"><span class="dot"></span> Active</div>
+          <div class="project-name">TDA-EV</div>
+          <div class="project-desc">
+            Topology-aware outage detection in EV charging networks using multipersistence descriptors and video classification on temporal graphs. Target: Journal.
+          </div>
+          <div class="tags">
+            <span class="tag">TDA</span>
+            <span class="tag">Temporal Graphs</span>
+            <span class="tag">EV Infrastructure</span>
+            <span class="tag">Multipersistence</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-status"><span class="dot"></span> Active</div>
+          <div class="project-name">Learnable Multipersistence Grids</div>
+          <div class="project-desc">
+            Using Vision Transformers to make multipersistence grids learnable as structural descriptors for graph-level tasks.
+          </div>
+          <div class="tags">
+            <span class="tag">Vision Transformer</span>
+            <span class="tag">Multipersistence</span>
+            <span class="tag">Graph Learning</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-status"><span class="dot" style="background:#f59e0b"></span> Completed</div>
+          <div class="project-name">RelBench Contribution</div>
+          <div class="project-desc">
+            Benchmarking topological ML approaches on large-scale relational graph datasets for node classification and regression tasks.
+          </div>
+          <div class="tags">
+            <span class="tag">Relational Graphs</span>
+            <span class="tag">Benchmarking</span>
+            <span class="tag">Node Classification</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">03</span>
+        <h2 class="section-title">Experience</h2>
+      </div>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-date">Aug 2023 –<br>Present</div>
+          <div>
+            <div class="exp-role">Graduate Research Assistant</div>
+            <div class="exp-org">Topological Machine Learning Lab · UT Dallas</div>
+            <ul class="exp-bullets">
+              <li>Developed T3Former (AAAI Oral), achieving 3% average SOTA improvement across 11 temporal graph benchmarks.</li>
+              <li>Designed G2Image encoding pipeline; ~4% improvement over SOTA on TUDatasets and OGBG.</li>
+              <li>Advancing Multi-OMICS and TDA-EV projects toward ICLR and journal submissions.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-date">Aug 2023 –<br>Present</div>
+          <div>
+            <div class="exp-role">Teaching Assistant</div>
+            <div class="exp-org">Department of Mathematical Sciences · UT Dallas</div>
+            <ul class="exp-bullets">
+              <li>Supporting undergraduate and graduate coursework with instruction, office hours, and grading.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-date">May 2022 –<br>May 2023</div>
+          <div>
+            <div class="exp-role">Process Transformation Intern</div>
+            <div class="exp-org">Park National Bank · Newark, OH</div>
+            <ul class="exp-bullets">
+              <li>Drove a $1M investment decision using regression and clustering models on a new credit card product.</li>
+              <li>Built Power BI dashboards saving ~7 hours per week; automated HR workflows saving 10 hours per month.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TALKS -->
+  <section id="talks">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">04</span>
+        <h2 class="section-title">Talks & Presentations</h2>
+      </div>
+      <div class="talks-list">
+
+        <div class="talk-item">
+          <div class="talk-date">Nov 2026<br><span style="color:#22c55e;font-size:0.65rem">Upcoming</span></div>
+          <div>
+            <div class="talk-title">Topological Machine Learning for Graph Classification</div>
+            <div class="talk-venue">SIAM Conference on Mathematics of Data Science</div>
+          </div>
+        </div>
+
+        <div class="talk-item">
+          <div class="talk-date">2024</div>
+          <div>
+            <div class="talk-title">Topological and Spectral Descriptors for Temporal Graph Learning</div>
+            <div class="talk-venue">Comet Computing Conference · University of Texas at Dallas</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">05</span>
+        <h2 class="section-title">Education</h2>
+      </div>
+      <div class="edu-list">
+
+        <div class="edu-item">
+          <div class="edu-date">Expected May 2028</div>
+          <div>
+            <div class="edu-degree">Ph.D. in Mathematics, Data Science Concentration</div>
+            <div class="edu-school">University of Texas at Dallas</div>
+            <div class="edu-gpa">Advisor: Dr. Baris Coskunuzer</div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-date">Expected May 2026</div>
+          <div>
+            <div class="edu-degree">M.S. in Mathematics</div>
+            <div class="edu-school">University of Texas at Dallas</div>
+            <div class="edu-gpa">GPA: 3.70</div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-date">May 2022</div>
+          <div>
+            <div class="edu-degree">B.S. Mathematics & B.A. Data Analytics</div>
+            <div class="edu-school">Denison University</div>
+            <div class="edu-gpa">GPA: 3.89</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">06</span>
+        <h2 class="section-title">Technical Skills</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-label">ML / Deep Learning</div>
+          <div class="skill-items">
+            <span class="skill-item">PyTorch</span>
+            <span class="skill-item">TensorFlow</span>
+            <span class="skill-item">GNNs</span>
+            <span class="skill-item">Graph Transformers</span>
+            <span class="skill-item">Topological ML</span>
+            <span class="skill-item">Scikit-learn</span>
+            <span class="skill-item">Time Series</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Languages</div>
+          <div class="skill-items">
+            <span class="skill-item">Python</span>
+            <span class="skill-item">R</span>
+            <span class="skill-item">SQL</span>
+            <span class="skill-item">C++</span>
+            <span class="skill-item">MATLAB</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Data & Engineering</div>
+          <div class="skill-items">
+            <span class="skill-item">Pandas</span>
+            <span class="skill-item">ETL/ELT</span>
+            <span class="skill-item">HPC</span>
+            <span class="skill-item">Mathematical Optimization</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Tools & Visualization</div>
+          <div class="skill-items">
+            <span class="skill-item">GitHub</span>
+            <span class="skill-item">LaTeX</span>
+            <span class="skill-item">Tableau</span>
+            <span class="skill-item">Power BI</span>
+            <span class="skill-item">Excel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p class="footer-text">soham.changani@gmail.com &nbsp;·&nbsp; Plano, TX &nbsp;·&nbsp; © 2026 Soham Changani</p>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.pub-card, .project-card, .exp-item, .talk-item').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
